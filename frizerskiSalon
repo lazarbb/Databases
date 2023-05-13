@@ -1,0 +1,32 @@
+DROP DATABASE IF EXISTS frizerskiSalon;
+CREATE DATABASE frizerskiSalon;
+USE frizerskiSalon;
+
+CREATE TABLE frizerskiSalon(
+    ID INT NOT NULL primary key auto_increment,
+    ime VARCHAR(50),
+    oib VARCHAR(50)
+);
+
+CREATE TABLE djelatnica(
+    ID INT NOT NULL primary key auto_increment,
+    frizerskiSalon INT,
+    ime VARCHAR(50)
+);
+
+CREATE TABLE usluga(
+    ID INT NOT NULL primary key auto_increment,
+    frizerskiSalon INT,
+    korisnik INT
+);
+
+CREATE TABLE korisnik(
+    ID INT auto_increment primary key NOT NULL,
+    djelatnica INT,
+    ime VARCHAR(50)
+);
+
+ALTER TABLE djelatnica add foreign key (frizerskiSalon) references frizerskiSalon(ID);
+ALTER TABLE usluga add foreign key (frizerskiSalon) references frizerskiSalon(ID);
+ALTER TABLE usluga add foreign key (korisnik) references korisnik(ID);
+ALTER TABLE korisnik add foreign key (djelatnica) references djelatnica(ID);
