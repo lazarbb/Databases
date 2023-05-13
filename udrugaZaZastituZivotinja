@@ -1,0 +1,39 @@
+DROP DATABASE IF EXISTS udrugaZaZastituZivotinja;
+CREATE DATABASE udrugaZaZastituZivotinja;
+USE udrugaZaZastituZivotinja;
+
+CREATE TABLE udrugaZaZastituZivotinja(
+    ID INT auto_increment primary key not null,
+    ime varchar(50),
+    vlasnik varchar(50)
+);
+
+CREATE TABLE osoba(
+    ID INT auto_increment primary key not null,
+    udrugaZaZastituZivotinja INT,
+    ime varchar(50)
+);
+
+CREATE TABLE sticenik(
+    ID INT auto_increment primary key not null,
+    osoba INT,
+    prostor INT
+);
+
+CREATE TABLE zivotinja(
+    ID INT auto_increment primary key not null,
+    sticenik INT,
+    vrsta varchar(50)
+);
+
+CREATE TABLE prostor(
+    ID INT auto_increment primary key not null,
+    udrugaZaZastituZivotinja INT,
+    povrsina INT
+);
+
+ALTER TABLE osoba add foreign key (udrugaZaZastituZivotinja) references udrugaZaZastituZivotinja(ID);
+ALTER TABLE sticenik add foreign key (osoba) references osoba(ID);
+ALTER TABLE sticenik add foreign key (prostor) references prostor(ID);
+ALTER TABLE zivotinja add foreign key (sticenik) references sticenik(ID);
+ALTER TABLE prostor add foreign key (udrugaZaZastituZivotinja) references udrugaZaZastituZivotinja(ID);
