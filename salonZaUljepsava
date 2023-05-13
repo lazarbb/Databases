@@ -1,0 +1,32 @@
+DROP DATABASE IF EXISTS salonZaUljepsavanje;
+CREATE DATABASE salonZaUljepsavanje;
+USE salonZaUljepsavanje;
+
+CREATE TABLE salonZaUljepsavanje(
+    ID INT not NULL primary key auto_increment,
+    ime varchar(50),
+    oib INT
+);
+
+CREATE TABLE djelatnica(
+    ID INT auto_increment primary key not null,
+    salonZaUljepsavanje int,
+    ime varchar(50)
+);
+
+CREATE TABLE korisnik(
+    ID INT auto_increment primary key not null,
+    djelatnica int,
+    ime varchar(50)
+);
+
+CREATE TABLE usluga(
+    ID INT auto_increment primary key not null,
+    korisnik int,
+    salonZaUljepsavanje int
+);
+
+ALTER TABLE djelatnica add foreign key (salonZaUljepsavanje) references salonZaUljepsavanje(ID);
+ALTER TABLE korisnik add foreign key (djelatnica) references djelatnica(ID);
+ALTER TABLE usluga add foreign key (korisnik) references korisnik(ID);
+ALTER TABLE usluga add foreign key (salonZaUljepsavanje) references salonZaUljepsavanje(id);
