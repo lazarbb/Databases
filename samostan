@@ -1,0 +1,18 @@
+DROP DATABASE IF EXISTS samostan;
+CREATE DATABASE samostan;
+USE samostan;
+
+CREATE TABLE samostan(
+    ID INT not NULL auto_increment primary key,
+    ime VARCHAR(50),
+    starost DATETIME
+);
+
+CREATE TABLE svecenik(
+    ID INT not NULL auto_increment primary key,
+    samostan INT,
+    svecenik INT
+);
+
+ALTER TABLE svecenik add foreign key (samostan) references samostan(ID);
+ALTER TABLE svecenik add foreign key (svecenik) references svecenik(ID);

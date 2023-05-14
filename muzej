@@ -1,0 +1,25 @@
+DROP DATABASE IF EXISTS muzej;
+CREATE DATABASE muzej;
+USE muzej;
+
+CREATE TABLE muzej(
+    ID INT not NULL auto_increment primary key,
+    ime VARCHAR(50),
+    petFriendly BOOLEAN
+);
+
+CREATE TABLE izlozba(
+    ID INT not NULL auto_increment primary key,
+    muzej INT,
+    sponzor VARCHAR(50),
+    kustos VARCHAR(50)
+);
+
+CREATE TABLE djelo(
+    ID INT not NULL auto_increment primary key,
+    izlozba INT,
+    ime VARCHAR(50)
+);
+
+ALTER TABLE izlozba add foreign key (muzej) references muzej(ID);
+ALTER TABLE djelo add foreign key (izlozba) references izlozba(ID);

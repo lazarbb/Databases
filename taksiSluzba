@@ -1,0 +1,40 @@
+DROP DATABASE IF EXISTS taksiSluzba;
+CREATE DATABASE taksiSluzba;
+USE taksiSluzba;
+
+CREATE TABLE taksiTvrtka(
+    ID INT not NULL auto_increment primary key,
+    ime VARCHAR(50),
+    maxVozila INT
+);
+
+CREATE TABLE vozilo(
+    ID INT not NULL auto_increment primary key,
+    taksiTvrtka INT,
+    vozac INT
+);
+
+CREATE TABLE vozac(
+    ID INT not NULL auto_increment primary key,
+    voznja INT,
+    ime VARCHAR(50)
+);
+
+CREATE TABLE voznja(
+    ID INT not NULL auto_increment primary key,
+    putnik INT,
+    brojVoznje CHAR(20)
+);
+
+CREATE TABLE putnik(
+    ID INT not NULL auto_increment primary key,
+    vozac INT,
+    voznja INT
+);
+
+ALTER TABLE vozilo add foreign key (taksiTvrtka) references taksiTvrtka(ID);
+ALTER TABLE vozilo add foreign key (vozac) references vozac(ID);
+ALTER TABLE vozac add foreign key (voznja) references voznja(ID);
+ALTER TABLE voznja add foreign key (putnik) references putnik(ID);
+ALTER TABLE putnik add foreign key (vozac) references vozac(ID);
+ALTER TABLE putnik add foreign key (voznja) references voznja(ID);

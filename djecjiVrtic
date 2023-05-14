@@ -1,0 +1,32 @@
+DROP DATABASE IF EXISTS djecjiVrtic;
+CREATE DATABASE djecjiVrtic;
+USE djecjiVrtic;
+
+CREATE TABLE djecjiVrtic(
+    ID INT not NULL auto_increment primary key,
+    ime VARCHAR(50),
+    maxPolaznika INT
+);
+
+CREATE TABLE odgojnaSkupina(
+    ID INT not NULL auto_increment primary key,
+    ime VARCHAR(50),
+    djecjiVrtic INT,
+    odgajateljica INT
+);
+
+CREATE TABLE dijete(
+    ID INT not NULL auto_increment primary key,
+    ime VARCHAR(50),
+    odgojnaSkupina INT
+);
+
+CREATE TABLE odgajateljica(
+    ID INT not NULL auto_increment primary key,
+    ime VARCHAR(50),
+    strucnaSprema VARCHAR(50)
+);
+
+ALTER TABLE odgojnaSkupina add foreign key (djecjiVrtic) references djecjiVrtic(ID);
+ALTER TABLE odgojnaSkupina add foreign key (odgajateljica) references odgajateljica(ID);
+ALTER TABLE dijete add foreign key (odgojnaSkupina) references odgojnaSkupina(ID);
